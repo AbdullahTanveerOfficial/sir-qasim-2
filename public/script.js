@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ? { name, email, phone, password }
             : { email, password };
 
-        const endpoint = isSignup ? "http://localhost:5000/api/signup" : "http://localhost:5000/api/login";
+        const endpoint = isSignup ? "/api/signup" : "/api/login";
 
         try {
             const response = await fetch(endpoint, {

@@ -47,7 +47,7 @@ app.post("/api/login", async (req, res) => {
 
     if (!email || !password) {
         return res.status(400).json({ status: 0, message: "Email and password are required!" });
-    }
+    } 
 
     try {
         // Check if user exists

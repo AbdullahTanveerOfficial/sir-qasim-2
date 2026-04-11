@@ -7,7 +7,7 @@ const enquiryModel = require("./models/enquiry.model");
 
 const app = express();    
 app.use(express.json());    
-app.use(express.static("public"));  
+app.use(express.static("public")); // this done 
 
 
 mongoose.connect(process.env.DBURL)

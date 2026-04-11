@@ -9,49 +9,48 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Pulling latest code from GitHub...'
+                echo 'Fetching code from GitHub...'
                 checkout scm
             }
         }
 
-        stage('Stop Old Containers') {
+        stage('Stop Existing Containers') {
             steps {
-                echo 'Stopping any running containers from previous build...'
-                sh '''
-                    docker-compose -f $COMPOSE_FILE down --remove-orphans || true
-                '''
+                echo 'Stopping any previously running containers...'
+                sh 'docker-compose down || true'
             }
         }
 
-        stage('Build & Start Containers') {
+        stage('Build') {
             steps {
-                echo 'Starting containers with docker-compose...'
-                sh '''
-                    docker-compose -f $COMPOSE_FILE up -d --build
-                '''
+                echo 'Building application with Docker Compose...'
+                sh 'docker-compose build --no-cache'
             }
         }
 
-        stage('Verify Deployment') {
+        stage('Deploy') {
             steps {
-                echo 'Verifying all containers are running...'
-                sh '''
-                    docker-compose -f $COMPOSE_FILE ps
-                '''
+                echo 'Starting containerized application...'
+                sh 'docker-compose up -d'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                echo 'Verifying containers are running...'
+                sh 'docker ps'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline SUCCESS! App is now running.'
+            echo 'Pipeline completed successfully!'
         }
 
         failure {
-            echo 'Pipeline FAILED. Check logs above.'
-            sh '''
-                docker-compose -f $COMPOSE_FILE logs --tail=50 || true
-            '''
+            echo 'Pipeline failed. Check the logs above.'
+            sh 'docker-compose logs || true'
         }
     }
 }

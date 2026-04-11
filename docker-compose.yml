@@ -1,25 +1,27 @@
 version: '3.8'
+
 services:
-app-backend:
-image: node:18-alpine
-container_name: mern-backend-v2
-working_dir: /app
-volumes:
-- .:/app
-- /app/node_modules
-ports:
-- '5001:5000'
-environment:
-- NODE_ENV=development
-command: sh -c 'npm install && node index.js'
-restart: unless-stopped
-app-frontend:
-image: nginx:alpine
-container_name: mern-frontend-v2
-volumes:
-- ./public:/usr/share/nginx/html
-ports:
-- '8081:80'
-restart: unless-stopped
-depends_on:
-- app-backend
+  app-backend:
+    image: node:18-alpine
+    container_name: mern-backend-v2
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - '5001:5000'
+    environment:
+      - NODE_ENV=development
+    command: sh -c 'npm install && node index.js'
+    restart: unless-stopped
+
+  app-frontend:
+    image: nginx:alpine
+    container_name: mern-frontend-v2
+    volumes:
+      - ./public:/usr/share/nginx/html
+    ports:
+      - '8081:80'
+    restart: unless-stopped
+    depends_on:
+      - app-backend

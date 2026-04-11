@@ -28,7 +28,7 @@ app.post("/api/signup", async (req, res) => {
         // Check if user already exists
         let existingUser = await enquiryModel.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ status: 0, message: "Email is already registered. Please log in." });
+            return res.status(400).json({ status: 0, message: "Email is already registered. Please log in again." });
         }
 
         // Create and save user

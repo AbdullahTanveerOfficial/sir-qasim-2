@@ -14,7 +14,7 @@ mongoose.connect(process.env.DBURL)
     .then(() => console.log("Connected to database"))
     .catch((err) => console.error("Database connection error shown:", err));
 
-const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey"; // Change this in production
+const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey"; // Change this in production in it
 
 // ➤ **Sign-Up Route**
 app.post("/api/signup", async (req, res) => {

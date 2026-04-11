@@ -12,7 +12,7 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.DBURL)
     .then(() => console.log("Connected to database"))
-    .catch((err) => console.error("Database connection error:", err));
+    .catch((err) => console.error("Database connection error shown:", err));
 
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey"; // Change this in production
 

@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const enquiryModel = require("./models/enquiry.model");  
 
-const app = express();
+const app = express();    
 app.use(express.json());
 app.use(express.static("public"));  
 
